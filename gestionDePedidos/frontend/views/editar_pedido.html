@@ -3,13 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio</title>
+    <title>Editar Pedido</title>
+ 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .form-container {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        font-weight: bold;
+      }
+      .form-header {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #495057;
+      }
+      .form-button {
+        width: 100%;
+        font-size: 14px; 
+        padding: 8px 12px; 
+      }
+  
+      .btn-smaller {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+    </style>
   </head>
   <body>
+   
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.html">Gestión de Pedidos</a>
@@ -81,17 +113,95 @@
               </ul>
             </li>
           </ul>
-
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="frontend/views/iniciar_sesion.html">Iniciar Sesión</a>
             </li>
-           
           </ul>
         </div>
       </div>
     </nav>
 
+
+    <div class="container">
+      <div class="form-container">
+        <h3 class="form-header">Editar Pedido</h3>
+        <form id="editarPedidoForm">
+          <div class="mb-3">
+            <label for="pedidoID" class="form-label">ID del Pedido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pedidoID"
+              name="pedidoID"
+              placeholder="Escribe el ID del pedido a editar"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <select class="form-select" id="cliente" name="cliente">
+              <option value="">Selecciona un cliente</option>
+              <option value="cliente1">Cliente 1</option>
+              <option value="cliente2">Cliente 2</option>
+              <option value="cliente3">Cliente 3</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="producto" class="form-label">Producto</label>
+            <select class="form-select" id="producto" name="producto">
+              <option value="">Selecciona un producto</option>
+              <option value="producto1">Producto 1</option>
+              <option value="producto2">Producto 2</option>
+              <option value="producto3">Producto 3</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cantidad"
+              name="cantidad"
+              placeholder="Escribe la nueva cantidad"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha de Pedido</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fecha"
+              name="fecha"
+            />
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary form-button btn-smaller">Guardar Cambios</button>
+            <button type="reset" class="btn btn-secondary form-button btn-smaller">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+   
+    <script>
+      document.getElementById("editarPedidoForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+
+        const pedidoID = document.getElementById("pedidoID").value;
+        const cliente = document.getElementById("cliente").value;
+        const producto = document.getElementById("producto").value;
+        const cantidad = document.getElementById("cantidad").value;
+        const fecha = document.getElementById("fecha").value;
+
+        if (!pedidoID || !cliente || !producto || !cantidad || !fecha) {
+          alert("Por favor, complete todos los campos.");
+        } else {
+          alert("Pedido actualizado correctamente.");
+        }
+      });
+    </script>
   </body>
 </html>
