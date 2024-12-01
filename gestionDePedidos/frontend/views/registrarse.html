@@ -68,6 +68,16 @@
             />
           </div>
           <div class="mb-3">
+            <label for="phone" class="form-label">Teléfono</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              placeholder="Escribe tu número de teléfono"
+              required
+            />
+          </div>
+          <div class="mb-3">
             <label for="email" class="form-label">Correo Electrónico</label>
             <input
               type="email"
@@ -99,20 +109,49 @@
     <script>
       const formRegistro = document.getElementById("formRegistro");
 
-      formRegistro.addEventListener("submit", function (e) {
-        e.preventDefault();
+      formRegistro.addEventListener("submit", async function (e) {
+        e.preventDefault(); 
 
         const nombreUsuario = document.getElementById("nombre_usuario").value;
+        const phone = document.getElementById("phone").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        if (!nombreUsuario || !email || !password) {
-          alert("Por favor, llena todos los campos");
+        if (!nombreUsuario || !phone || !email || !password) {
+          alert("Por favor, llena todos los campos.");
           return;
         }
 
-        alert(`Usuario ${nombreUsuario} registrado con éxito.`);
-        formRegistro.reset();
+        try {
+          const response = await fetch("http://localhost:8000/api/usuarios", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: nombreUsuario,
+              phone: phone,
+              email: email,
+              password: password,
+            }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            alert("Usuario registrado con éxito.");
+            
+            formRegistro.reset(); 
+            window.location.href = "iniciar_sesion.html";
+
+          } else {
+            const errorData = await response.json();
+            console.error("Detalles del error:", errorData.errors);
+            alert(`Error: ${errorData.message}`);
+          }
+        } catch (error) {
+          console.error("Error al conectarse al servidor:", error);
+          alert("Hubo un problema al conectarse con el servidor.");
+        }
       });
     </script>
   </body>
