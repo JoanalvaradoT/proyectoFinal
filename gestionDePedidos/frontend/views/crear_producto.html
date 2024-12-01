@@ -9,36 +9,49 @@
       rel="stylesheet"
     />
     <style>
-      
       body {
-        background-color: #f8f9fa;
+        background-color: #ffffff;
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
-
-      .container {
+      .form-container {
         margin-top: 50px;
-        max-width: 600px;
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #343a40;
-      }
-
-      .btn-primary {
+        padding: 40px 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
         width: 100%;
       }
-
-      .form-group label {
+      .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #4364f7;
+      }
+      .form-control {
+        border-radius: 10px;
+        border: 1px solid #d1d3e2;
+        transition: 0.3s;
+      }
+      .form-control:focus {
+        border-color: #4364f7;
+        box-shadow: 0 0 5px rgba(67, 100, 247, 0.5);
+      }
+      .btn-primary {
+        background-color: #4364f7;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #6fb1fc;
+      }
+      .navbar-dark .navbar-brand {
         font-weight: bold;
       }
     </style>
   </head>
   <body>
+    <!-- Barra de Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.html">Gestión de Pedidos</a>
@@ -55,6 +68,7 @@
         </button>
         <div class="collapse navbar-collapse" id="menuNavegacion">
           <ul class="navbar-nav me-auto">
+            <!-- Menú de Pedidos -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -73,6 +87,7 @@
                 <li><a class="dropdown-item" href="eliminar_pedido.html">Eliminar</a></li>
               </ul>
             </li>
+            <!-- Menú de Productos -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -91,6 +106,7 @@
                 <li><a class="dropdown-item" href="eliminar_producto.html">Eliminar</a></li>
               </ul>
             </li>
+            <!-- Menú de Clientes -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -112,58 +128,63 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="frontend/views/iniciar_sesion.html">Iniciar Sesión</a>
+              <a class="nav-link" href="iniciar_sesion.html">Iniciar Sesión</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="container">
-      <h2>Crear Producto</h2>
-      <form id="crearProductoForm">
-        <div class="form-group mb-3">
-          <label for="nombre">Nombre</label>
-          <input
-            type="text"
-            id="nombre"
-            class="form-control"
-            placeholder="Ingrese el nombre del producto"
-            required
-          />
-        </div>
-        <div class="form-group mb-3">
-          <label for="precio">Precio</label>
-          <input
-            type="number"
-            id="precio"
-            class="form-control"
-            placeholder="Ingrese el precio del producto"
-            required
-          />
-        </div>
-        <div class="form-group mb-3">
-          <label for="descripcion">Descripción</label>
-          <textarea
-            id="descripcion"
-            class="form-control"
-            rows="3"
-            placeholder="Ingrese la descripción del producto"
-            required
-          ></textarea>
-        </div>
-        <div class="form-group mb-3">
-          <label for="cantidad">Cantidad Disponible</label>
-          <input
-            type="number"
-            id="cantidad"
-            class="form-control"
-            placeholder="Ingrese la cantidad disponible"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Crear Producto</button>
-      </form>
+    <!-- Formulario -->
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="form-container">
+        <h3 class="form-header">Crear Producto</h3>
+        <form id="crearProductoForm">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Producto</label>
+            <input
+              type="text"
+              id="nombre"
+              class="form-control"
+              placeholder="Ingrese el nombre del producto"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input
+              type="number"
+              id="precio"
+              class="form-control"
+              placeholder="Ingrese el precio del producto"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea
+              id="descripcion"
+              class="form-control"
+              rows="3"
+              placeholder="Ingrese la descripción del producto"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad Disponible</label>
+            <input
+              type="number"
+              id="cantidad"
+              class="form-control"
+              placeholder="Ingrese la cantidad disponible"
+              required
+            />
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Crear Producto</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script>

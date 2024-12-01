@@ -6,16 +6,12 @@ use App\Http\Controllers\Api\UsuariosController;
 
 Route::get('/usuarios', [UsuariosController::class, 'index']);
 
- Route::get('/Usuarios/{id}', function(){
-     return 'Obteniendo Usuario';
- });
+Route::get('/usuarios/{id}', [UsuariosController::class, 'show']);
 
 Route::post('/usuarios', [UsuariosController::class, 'store']);
 
-Route::put('/Usuarios/{id}', function(){
-     return 'Actulizando Usuario';
- });
+Route::put('/usuarios/{id}', [UsuariosController::class, 'update']);
 
- Route::delete('/Usuarios/{id}', function(){
-     return 'Eliminando Usuario';
- });
+Route::delete('/usuarios/{id}', [UsuariosController::class, 'destroy']);
+
+Route::post('/login', [UsuariosController::class, 'login']);
