@@ -10,14 +10,50 @@
     />
     <style>
       body {
-        background-color: #f8f9fa;
+        background-color: #ffffff;
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
       .form-container {
-        margin-top: 30px;
-        padding: 20px;
-        background: white;
+        margin-top: 50px;
+        padding: 40px 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        width: 100%;
+      }
+      .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #4364f7;
+      }
+      .form-control {
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #d1d3e2;
+        transition: 0.3s;
+      }
+      .form-control:focus {
+        border-color: #4364f7;
+        box-shadow: 0 0 5px rgba(67, 100, 247, 0.5);
+      }
+      .btn-primary {
+        background-color: #4364f7;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #6fb1fc;
+      }
+      .btn-secondary {
+        background-color: #d1d3e2;
+        border: none;
+      }
+      .btn-secondary:hover {
+        background-color: #c1c3d2;
+      }
+      .navbar-dark .navbar-brand {
+        font-weight: bold;
       }
     </style>
   </head>
@@ -93,19 +129,19 @@
               </ul>
             </li>
           </ul>
-
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="frontend/views/iniciar_sesion.html">Iniciar Sesión</a>
+              <a class="nav-link" href="iniciar_sesion.html">Iniciar Sesión</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="container">
+    <!-- Formulario -->
+    <div class="container d-flex justify-content-center align-items-center">
       <div class="form-container">
-        <h3 class="text-center">Editar Cliente</h3>
+        <h3 class="form-header">Editar Cliente</h3>
         <form id="editarClienteForm">
           <div class="mb-3">
             <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
@@ -115,6 +151,7 @@
               id="nombre_usuario"
               name="nombre_usuario"
               placeholder="Escribe el nombre de usuario"
+              required
             />
           </div>
           <div class="mb-3">
@@ -125,6 +162,7 @@
               id="email"
               name="email"
               placeholder="Escribe el correo electrónico"
+              required
             />
           </div>
           <div class="mb-3">
@@ -135,11 +173,12 @@
               id="telefono"
               name="telefono"
               placeholder="Escribe el número de teléfono"
+              required
             />
           </div>
           <div class="mb-3">
             <label for="rol" class="form-label">Rol</label>
-            <select class="form-select" id="rol" name="rol">
+            <select class="form-select" id="rol" name="rol" required>
               <option value="">Selecciona un rol</option>
               <option value="administrador">Administrador</option>
               <option value="usuario">Usuario</option>
@@ -153,37 +192,34 @@
               id="password"
               name="password"
               placeholder="Escribe la contraseña"
+              required
             />
           </div>
           <div class="text-center">
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            <button type="reset" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Guardar Cambios</button>
+            <button type="reset" class="btn btn-secondary btn-lg w-100">Cancelar</button>
           </div>
         </form>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
-   
-      document.getElementById("editarClienteForm").addEventListener("submit", function(event) {
+      document.getElementById("editarClienteForm").addEventListener("submit", function (event) {
         event.preventDefault();
+
         const nombre_usuario = document.getElementById("nombre_usuario").value;
         const email = document.getElementById("email").value;
         const telefono = document.getElementById("telefono").value;
         const rol = document.getElementById("rol").value;
         const password = document.getElementById("password").value;
 
-      
         if (!nombre_usuario || !email || !telefono || !rol || !password) {
           alert("Por favor, complete todos los campos.");
         } else {
           alert("Cliente actualizado correctamente.");
-       ;
         }
       });
     </script>
   </body>
 </html>
-
