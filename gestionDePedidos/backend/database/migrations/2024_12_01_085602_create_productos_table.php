@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('precio');
             $table->string('descripcion');
             $table->string('cantidad_disponible');
+            $table->string('imagen')->nullable(); 
             $table->timestamps();
         });
     }
