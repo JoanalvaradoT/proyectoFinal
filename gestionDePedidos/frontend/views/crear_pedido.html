@@ -76,7 +76,6 @@
         </button>
         <div class="collapse navbar-collapse" id="menuNavegacion">
           <ul class="navbar-nav me-auto">
-            <!-- Menú de Pedidos -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -95,7 +94,6 @@
                 <li><a class="dropdown-item" href="eliminar_pedido.html">Eliminar</a></li>
               </ul>
             </li>
-            <!-- Menú de Productos -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -114,7 +112,6 @@
                 <li><a class="dropdown-item" href="eliminar_producto.html">Eliminar</a></li>
               </ul>
             </li>
-            <!-- Menú de Clientes -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -149,15 +146,6 @@
         <h3 class="form-header">Crear Nuevo Pedido</h3>
         <form id="crearPedidoForm">
           <div class="mb-3">
-            <label for="cliente" class="form-label">Cliente</label>
-            <select class="form-select" id="cliente" name="cliente" required>
-              <option value="">Selecciona un cliente</option>
-              <option value="cliente1">Cliente 1</option>
-              <option value="cliente2">Cliente 2</option>
-              <option value="cliente3">Cliente 3</option>
-            </select>
-          </div>
-          <div class="mb-3">
             <label for="producto" class="form-label">Producto</label>
             <select class="form-select" id="producto" name="producto" required>
               <option value="">Selecciona un producto</option>
@@ -174,16 +162,7 @@
               id="cantidad"
               name="cantidad"
               placeholder="Escribe la cantidad"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha de Pedido</label>
-            <input
-              type="date"
-              class="form-control"
-              id="fecha"
-              name="fecha"
+              min="1"
               required
             />
           </div>
@@ -200,13 +179,11 @@
       document.getElementById("crearPedidoForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const cliente = document.getElementById("cliente").value;
         const producto = document.getElementById("producto").value;
-        const cantidad = document.getElementById("cantidad").value;
-        const fecha = document.getElementById("fecha").value;
+        const cantidad = parseInt(document.getElementById("cantidad").value, 10);
 
-        if (!cliente || !producto || !cantidad || !fecha) {
-          alert("Por favor, complete todos los campos.");
+        if (!producto || cantidad < 1) {
+          alert("Por favor, selecciona un producto y asegúrate de que la cantidad sea válida (mayor a 0).");
         } else {
           alert("Pedido creado correctamente.");
         }
