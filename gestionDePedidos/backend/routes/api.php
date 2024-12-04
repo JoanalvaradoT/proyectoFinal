@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuariosController;
 use App\Http\Controllers\Api\ProductosController;
+use App\Http\Controllers\Api\DireccionesController;
 
 // Rutas para Usuarios
 Route::get('/usuarios', [UsuariosController::class, 'index']);
@@ -19,3 +20,11 @@ Route::get('/productos/{id}', [ProductosController::class, 'show']);
 Route::post('/productos', [ProductosController::class, 'store']);
 Route::put('/productos/{id}', [ProductosController::class, 'update']);
 Route::delete('/productos/{id}', [ProductosController::class, 'destroy']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/direcciones', [DireccionesController::class, 'index']); 
+    Route::post('/direcciones', [DireccionesController::class, 'store']); 
+    Route::delete('/direcciones/{id}', [DireccionesController::class, 'destroy']);
+});
+
+
