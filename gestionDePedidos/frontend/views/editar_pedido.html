@@ -59,7 +59,6 @@
     </style>
   </head>
   <body>
-    <!-- Barra de Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.html">Gestión de Pedidos</a>
@@ -140,7 +139,49 @@
       </div>
     </nav>
 
-  
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="form-container">
+        <h3 class="form-header">Editar Pedido</h3>
+        <form id="editarPedidoForm">
+          <div class="mb-3">
+            <label for="pedidoID" class="form-label">ID del Pedido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pedidoID"
+              name="pedidoID"
+              placeholder="Escribe el ID del pedido a editar"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="producto" class="form-label">Producto</label>
+            <select class="form-select" id="producto" name="producto" required>
+              <option value="">Selecciona un producto</option>
+              <option value="producto1">Producto 1</option>
+              <option value="producto2">Producto 2</option>
+              <option value="producto3">Producto 3</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cantidad"
+              name="cantidad"
+              placeholder="Escribe la nueva cantidad"
+              min="1"
+              required
+            />
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Guardar Cambios</button>
+            <button type="reset" class="btn btn-secondary btn-lg w-100">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
