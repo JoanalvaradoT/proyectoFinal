@@ -6,7 +6,6 @@ use App\Models\Direccion;
 
 class DireccionesController extends Controller
 {
-
     public function index()
     {
         $direcciones = Direccion::where('id_usuario', Auth::id())->get();

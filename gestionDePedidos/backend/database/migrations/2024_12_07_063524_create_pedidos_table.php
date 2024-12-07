@@ -17,8 +17,7 @@ return new class extends Migration
         $table->string('progreso');
         $table->string('Total');
         $table->timestamps();
-
-        $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
+        $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
     });
 }
 

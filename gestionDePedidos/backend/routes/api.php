@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UsuariosController;
 use App\Http\Controllers\Api\ProductosController;
 use App\Http\Controllers\Api\DireccionesController;
 use App\Http\Controllers\Api\PedidosController;
+use App\Http\Controllers\Api\DetallePedidosController;
 
 
 // Rutas para Usuarios
@@ -36,7 +37,12 @@ Route::post('/pedidos', [PedidosController::class, 'store']);
 Route::put('/pedidos/{id}', [PedidosController::class, 'update']); 
 Route::delete('/pedidos/{id}', [PedidosController::class, 'destroy']);    
 
-
+// Rutas para detalle pedidos
+Route::get('/detalle_pedidos', [DetallePedidosController::class, 'index']); 
+Route::get('/detalle_pedidos/{id}', [DetallePedidosController::class, 'show']); 
+Route::post('/detalle_pedidos', [DetallePedidosController::class, 'store']); 
+Route::put('/detalle_pedidos/{id}', [DetallePedidosController::class, 'update']); 
+Route::delete('/detalle_pedidos/{id}', [DetallePedidosController::class, 'destroy']); 
 });
 
 
