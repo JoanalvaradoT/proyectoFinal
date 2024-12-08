@@ -51,7 +51,7 @@
     </style>
   </head>
   <body>
-    <!-- Barra de Navegación -->
+    <!-- Navbar original -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.html">Gestión de Pedidos</a>
@@ -68,7 +68,6 @@
         </button>
         <div class="collapse navbar-collapse" id="menuNavegacion">
           <ul class="navbar-nav me-auto">
-            <!-- Menú de Pedidos -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -87,7 +86,6 @@
                 <li><a class="dropdown-item" href="eliminar_pedido.html">Eliminar</a></li>
               </ul>
             </li>
-            <!-- Menú de Productos -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -106,7 +104,6 @@
                 <li><a class="dropdown-item" href="eliminar_producto.html">Eliminar</a></li>
               </ul>
             </li>
-            <!-- Menú de Clientes -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -139,7 +136,7 @@
     <div class="container d-flex justify-content-center align-items-center">
       <div class="form-container">
         <h3 class="form-header">Crear Producto</h3>
-        <form id="crearProductoForm">
+        <form id="crearProductoForm" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre del Producto</label>
             <input
@@ -180,6 +177,16 @@
               required
             />
           </div>
+          <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen del Producto</label>
+            <input
+              type="file"
+              id="imagen"
+              class="form-control"
+              accept="image/*"
+              required
+            />
+          </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Crear Producto</button>
           </div>
@@ -188,19 +195,33 @@
     </div>
 
     <script>
-      document.getElementById("crearProductoForm").addEventListener("submit", function (e) {
+      document.getElementById("crearProductoForm").addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        const nombre = document.getElementById("nombre").value;
-        const precio = document.getElementById("precio").value;
-        const descripcion = document.getElementById("descripcion").value;
-        const cantidad = document.getElementById("cantidad").value;
+        const formData = new FormData();
+        formData.append("nombre", document.getElementById("nombre").value);
+        formData.append("precio", document.getElementById("precio").value);
+        formData.append("descripcion", document.getElementById("descripcion").value);
+        formData.append("cantidad_disponible", document.getElementById("cantidad").value);
+        formData.append("imagen", document.getElementById("imagen").files[0]);
 
-        if (nombre && precio && descripcion && cantidad) {
-          alert("Producto creado exitosamente.");
-          this.reset();
-        } else {
-          alert("Por favor, complete todos los campos.");
+        try {
+          const response = await fetch("http://localhost:8000/api/productos", {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            alert("Producto creado exitosamente.");
+            this.reset();
+          } else {
+            alert("Error al crear el producto: " + result.message);
+          }
+        } catch (error) {
+          console.error("Error en la solicitud:", error);
+          alert("Error al procesar la solicitud.");
         }
       });
     </script>
