@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio</title>
+    <title>Eliminar Productos</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -38,10 +38,20 @@
                 Pedidos
               </a>
               <ul class="dropdown-menu" aria-labelledby="menuPedidos">
-                <li><a class="dropdown-item" href="pedidos.html">Consultar</a></li>
-                <li><a class="dropdown-item" href="crear_pedido.html">Crear</a></li>
-                <li><a class="dropdown-item" href="editar_pedido.html">Editar</a></li>
-                <li><a class="dropdown-item" href="eliminar_pedido.html">Eliminar</a></li>
+                <li>
+                  <a class="dropdown-item" href="pedidos.html">Consultar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="crear_pedido.html">Crear</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="editar_pedido.html">Editar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="eliminar_pedido.html"
+                    >Eliminar</a
+                  >
+                </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -56,10 +66,22 @@
                 Productos
               </a>
               <ul class="dropdown-menu" aria-labelledby="menuProductos">
-                <li><a class="dropdown-item" href="productos.html">Consultar</a></li>
-                <li><a class="dropdown-item" href="crear_producto.html">Crear</a></li>
-                <li><a class="dropdown-item" href="editar_producto.html">Editar</a></li>
-                <li><a class="dropdown-item" href="eliminar_producto.html">Eliminar</a></li>
+                <li>
+                  <a class="dropdown-item" href="productos.html">Consultar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="crear_producto.html">Crear</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="editar_producto.html"
+                    >Editar</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="eliminar_producto.html"
+                    >Eliminar</a
+                  >
+                </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -74,10 +96,20 @@
                 Clientes
               </a>
               <ul class="dropdown-menu" aria-labelledby="menuClientes">
-                <li><a class="dropdown-item" href="clientes.html">Consultar</a></li>
-                <li><a class="dropdown-item" href="registrarse.html">Crear</a></li>
-                <li><a class="dropdown-item" href="editar_cliente.html">Editar</a></li>
-                <li><a class="dropdown-item" href="eliminar_cliente.html">Eliminar</a></li>
+                <li>
+                  <a class="dropdown-item" href="clientes.html">Consultar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="registrarse.html">Crear</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="editar_cliente.html">Editar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="eliminar_cliente.html"
+                    >Eliminar</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -86,12 +118,84 @@
             <li class="nav-item">
               <a class="nav-link" href="iniciar_sesion.html">Iniciar Sesión</a>
             </li>
-           
           </ul>
         </div>
       </div>
     </nav>
 
+    <!-- Contenedor principal -->
+    <div class="container my-5">
+      <h1 class="text-center mb-4">Eliminar Productos</h1>
+      <div class="row" id="productos-container">
+        <!-- Aquí se insertarán las tarjetas de los productos -->
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const apiUrl = "http://localhost:8000/api/productos"; 
+
+      const productosContainer = document.getElementById("productos-container");
+
+      async function cargarProductos() {
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+
+          if (data.status === 200) {
+            mostrarProductos(data.productos);
+          } else {
+            console.error("Error al cargar los productos:", data.message);
+          }
+        } catch (error) {
+          console.error("Error en la petición:", error);
+        }
+      }
+
+      function mostrarProductos(productos) {
+        productosContainer.innerHTML = ""; 
+
+        productos.forEach((producto) => {
+          const productoCard = `
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img src="${producto.imagen ? `http://localhost/storage/${producto.imagen}` : 'https://via.placeholder.com/150'}" class="card-img-top" alt="${producto.nombre}">
+                <div class="card-body">
+                  <h5 class="card-title">${producto.nombre}</h5>
+                  <p class="card-text">${producto.descripcion}</p>
+                  <p class="card-text"><strong>Precio:</strong> $${producto.precio}</p>
+                  <p class="card-text"><strong>Cantidad disponible:</strong> ${producto.cantidad_disponible}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                  <button class="btn btn-sm btn-danger" onclick="eliminarProducto(${producto.id_producto})">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          productosContainer.innerHTML += productoCard;
+        });
+      }
+
+      async function eliminarProducto(productoId) {
+        const confirmar = confirm("¿Estás seguro de que deseas eliminar este producto?");
+        if (!confirmar) return;
+
+        try {
+          const response = await fetch(`${apiUrl}/${productoId}`, {
+            method: "DELETE",
+          });
+
+          if (response.status === 200) {
+            alert("Producto eliminado correctamente.");
+            cargarProductos();
+          } else {
+            console.error("Error al eliminar el producto");
+          }
+        } catch (error) {
+          console.error("Error en la petición:", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", cargarProductos);
+    </script>
   </body>
 </html>

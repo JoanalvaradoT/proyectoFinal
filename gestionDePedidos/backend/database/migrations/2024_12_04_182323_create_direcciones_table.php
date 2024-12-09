@@ -12,16 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('direcciones', function (Blueprint $table) {
-            $table->id('id_direccion'); 
-            $table->unsignedBigInteger('id_usuario'); 
+            $table->id('id_direccion'); // Llave primaria
+            $table->unsignedBigInteger('id_usuario'); // Llave foránea
             $table->string('ciudad');
             $table->string('estado');
             $table->string('numero_casa');
             $table->string('codigo_postal');
             $table->string('calle');
             $table->timestamps();
-            $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
+        
+            // Relación foránea corregida
+            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios')->onDelete('cascade');
         });
+        
         
     }
     /**

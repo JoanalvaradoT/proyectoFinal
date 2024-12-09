@@ -142,7 +142,7 @@ class UsuariosController extends Controller
 
     public function destroy($id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = Usuario::where('id_usuario', $id)->first();
 
         if (!$usuario) {
             return response()->json([

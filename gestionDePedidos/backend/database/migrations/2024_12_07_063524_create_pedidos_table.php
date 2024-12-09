@@ -17,8 +17,11 @@ return new class extends Migration
         $table->string('progreso');
         $table->string('Total');
         $table->timestamps();
-        $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
+    
+        // Referencia corregida
+        $table->foreign('id_usuario')->references('id_usuario')->on('usuarios')->onDelete('cascade');
     });
+    
 }
 
 
