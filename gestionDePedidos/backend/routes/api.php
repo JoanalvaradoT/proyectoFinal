@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProductosController;
 use App\Http\Controllers\Api\DireccionesController;
 use App\Http\Controllers\Api\PedidosController;
 use App\Http\Controllers\Api\DetallePedidosController;
+use App\Http\Controllers\Api\AuthController;
 
 
 // Rutas para Usuarios
@@ -15,7 +16,10 @@ Route::get('/usuarios/{id}', [UsuariosController::class, 'show']);
 Route::post('/usuarios', [UsuariosController::class, 'store']);
 Route::put('/usuarios/{id}', [UsuariosController::class, 'update']);
 Route::delete('/usuarios/{id}', [UsuariosController::class, 'destroy']);
-Route::post('/login', [UsuariosController::class, 'login']);
+
+//Login
+Route::post('/login', [AuthController::class, 'login']);
+
 
 // Rutas para Productos
 Route::get('/productos', [ProductosController::class, 'index']);
