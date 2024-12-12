@@ -128,11 +128,12 @@
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                  <h5 class="card-title">Pedido #${pedido.id}</h5>
+                  <h5 class="card-title">Pedido #${pedido.id_pedido}</h5>
                   <p class="card-text"><strong>Producto:</strong> ${pedido.Producto}</p>
                   <p class="card-text"><strong>Cantidad:</strong> ${pedido.cantidad_producto}</p>
                   <p class="card-text"><strong>Dirección:</strong> ${pedido.direccion}</p>
                   <p class="card-text"><strong>Fecha:</strong> ${new Date(pedido.created_at).toLocaleDateString()}</p>
+                  <button class="btn btn-primary btn-sm" onclick="verDetallePedido(${pedido.id_pedido})">Detalle de Pedido</button>
                 </div>
               </div>
             </div>`;
@@ -140,7 +141,42 @@
         });
       }
 
-      document.addEventListener("DOMContentLoaded", cargarPedidos);
+      function verDetallePedido(id) {
+        window.location.href = `detalle_pedido.html?id=${id}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        cargarPedidos();
+
+        const usuarioData = localStorage.getItem("usuario");
+
+        if (usuarioData) {
+          const usuario = JSON.parse(usuarioData);
+          const navbar = document.querySelector(".navbar-nav");
+
+          const usuarioMenu = document.createElement("li");
+          usuarioMenu.classList.add("nav-item", "dropdown");
+          usuarioMenu.innerHTML = `
+            <a class="nav-link dropdown-toggle" href="#" id="menuUsuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ${usuario.name}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuUsuario">
+              <li><a class="dropdown-item" href="#" id="cerrarSesion">Cerrar Sesión</a></li>
+            </ul>
+          `;
+
+          const iniciarSesionLink = document.getElementById("iniciarSesionLink");
+          if (iniciarSesionLink) {
+            iniciarSesionLink.parentElement.replaceWith(usuarioMenu);
+          }
+
+          document.getElementById("cerrarSesion").addEventListener("click", function () {
+            localStorage.removeItem("usuario");
+            alert("Has cerrado sesión.");
+            window.location.href = "../../index.html";
+          });
+        }
+      });
     </script>
   </body>
 </html>
