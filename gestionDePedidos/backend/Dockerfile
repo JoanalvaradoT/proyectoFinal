@@ -1,4 +1,4 @@
-# Usa una imagen oficial de PHP con soporte para Apache
+# Usa una imagen oficial de PHP 8.2 con soporte para Apache
 FROM php:8.2-apache
 
 # Instala extensiones necesarias para Laravel
@@ -21,18 +21,18 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copia los archivos del proyecto al contenedor
 COPY . /var/www/html
 
-# Cambia el directorio raíz de Apache a la carpeta `public/`
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
-
 # Configura el directorio de trabajo
 WORKDIR /var/www/html
 
 # Instala dependencias de Composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader --no-dev
 
 # Da permisos a las carpetas de almacenamiento y caché
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Cambia el directorio raíz de Apache a la carpeta `public/`
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
 # Activa módulos necesarios de Apache
 RUN a2enmod rewrite
