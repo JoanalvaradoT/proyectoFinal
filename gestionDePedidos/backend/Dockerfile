@@ -3,6 +3,8 @@ FROM php:8.1-apache
 
 # Instala extensiones necesarias para Laravel
 RUN apt-get update && apt-get install -y \
+    git \
+    curl \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -24,6 +26,9 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 
 # Configura el directorio de trabajo
 WORKDIR /var/www/html
+
+# Instala dependencias de Composer
+RUN composer install --optimize-autoloader --no-dev
 
 # Da permisos a las carpetas de almacenamiento y caché
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
