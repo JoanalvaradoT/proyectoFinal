@@ -1,5 +1,5 @@
 # Usa una imagen oficial de PHP con soporte para Apache
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 # Instala extensiones necesarias para Laravel
 RUN apt-get update && apt-get install -y \
@@ -28,10 +28,11 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 WORKDIR /var/www/html
 
 # Instala dependencias de Composer
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install --no-dev --optimize-autoloader
 
 # Da permisos a las carpetas de almacenamiento y caché
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Activa módulos necesarios de Apache
 RUN a2enmod rewrite
