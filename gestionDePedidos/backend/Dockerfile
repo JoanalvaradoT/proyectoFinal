@@ -1,8 +1,10 @@
-# Usa una imagen oficial de PHP con soporte para Apache
-FROM php:8.1-apache
+# Usa una imagen oficial de PHP 8.2 con soporte para Apache
+FROM php:8.2-apache
 
 # Instala extensiones necesarias para Laravel
 RUN apt-get update && apt-get install -y \
+    git \
+    curl \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
