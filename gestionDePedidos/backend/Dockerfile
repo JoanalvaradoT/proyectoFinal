@@ -15,9 +15,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Elimina la configuración duplicada de `mbstring`
-RUN sed -i '/extension=mbstring.so/d' /usr/local/etc/php/php.ini
-
 # Instala Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -29,9 +26,6 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 
 # Configura el directorio de trabajo
 WORKDIR /var/www/html
-
-# Crea un archivo SQLite vacío (si es necesario)
-RUN mkdir -p /var/www/html/database && touch /var/www/html/database/database.sqlite
 
 # Instala dependencias de Composer
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --optimize-autoloader --no-dev
