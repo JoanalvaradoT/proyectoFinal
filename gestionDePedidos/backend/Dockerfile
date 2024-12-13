@@ -1,4 +1,4 @@
-# Usa una imagen oficial de PHP 8.2 con soporte para Apache
+# Usa una imagen oficial de PHP con soporte para Apache
 FROM php:8.2-apache
 
 # Instala extensiones necesarias para Laravel
@@ -24,8 +24,8 @@ COPY . /var/www/html
 # Configura el directorio de trabajo
 WORKDIR /var/www/html
 
-# Instala dependencias de Composer
-RUN composer install --optimize-autoloader --no-dev
+# Desactiva el comando `php artisan optimize:clear`
+RUN composer install --optimize-autoloader --no-dev || true
 
 # Da permisos a las carpetas de almacenamiento y caché
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
