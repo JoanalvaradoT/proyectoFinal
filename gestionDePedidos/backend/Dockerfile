@@ -8,12 +8,13 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
-    libonig-dev \
+    libpq-dev \
     libzip-dev \
+    libonig-dev \
     zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    unzip && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo_pgsql pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Instala Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -24,7 +25,7 @@ COPY . /var/www/html
 # Configura el directorio de trabajo
 WORKDIR /var/www/html
 
-# Desactiva el comando `php artisan optimize:clear`
+# Instala dependencias con Composer
 RUN composer install --optimize-autoloader --no-dev || true
 
 # Da permisos a las carpetas de almacenamiento y caché
