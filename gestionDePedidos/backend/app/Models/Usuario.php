@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Authenticatable
+class Usuario extends Model
 {
     use HasFactory;
 
-    protected $table = 'usuarios';
+    protected $table = 'usuarios'; // Nombre de la tabla en la base de datos
+    protected $primaryKey = 'id_usuario'; // Clave primaria de la tabla
 
-    protected $primaryKey = 'id_usuario';
+    protected $fillable = [
+        'name',
+        'phone',
+        'email',
+        'password',
+    ];
 
-    protected $fillable = ['name', 'phone', 'email', 'password'];
-
-    protected $hidden = ['password', 'remember_token'];
+    public $timestamps = true; // Para manejar created_at y updated_at
 }
