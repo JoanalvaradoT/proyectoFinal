@@ -11,7 +11,7 @@
     <script src="../../backend/auth.js"></script>
     <script>
       verificarAutenticacion();
-  </script>
+    </script>
     <style>
       body {
         background-color: #ffffff;
@@ -105,18 +105,18 @@
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
-                id="menuClientes"
+                id="menuUsuarios"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Clientes
+                Usuarios
               </a>
-              <ul class="dropdown-menu" aria-labelledby="menuClientes">
-                <li><a class="dropdown-item" href="clientes.html">Consultar</a></li>
-                <li><a class="dropdown-item" href="registrarse.html">Crear</a></li>
-                <li><a class="dropdown-item" href="editar_cliente.html">Editar</a></li>
-                <li><a class="dropdown-item" href="eliminar_cliente.html">Eliminar</a></li>
+              <ul class="dropdown-menu" aria-labelledby="menuUsuarios">
+                <li><a class="dropdown-item" href="usuarios.html">Consultar</a></li>
+                <li><a class="dropdown-item" href="registrar_usuario.html">Crear</a></li>
+                <li><a class="dropdown-item" href="editar_usuario.html">Editar</a></li>
+                <li><a class="dropdown-item" href="eliminar_usuario.html">Eliminar</a></li>
               </ul>
             </li>
           </ul>
@@ -199,7 +199,7 @@
             alert("Error al eliminar usuario: " + data.message);
           }
         } catch (error) {
-          console.error("Error al conectar con la APIIi:", error);
+          console.error("Error al conectar con la API:", error);
         }
       }
 
